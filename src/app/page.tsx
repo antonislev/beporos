@@ -16,8 +16,7 @@ export default function HomePage() {
         </div>
 
         <span
-          className="font-display text-[11px] tracking-[6px] text-[var(--muted)] uppercase mb-8 opacity-0 animate-fade-up"
-          style={{ animationDelay: "0.2s" }}
+          className="font-display text-[11px] tracking-[6px] text-[var(--muted)] uppercase mb-8"
         >
           Athens Street Society
         </span>
