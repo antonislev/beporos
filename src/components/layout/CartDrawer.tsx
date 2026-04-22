@@ -17,9 +17,9 @@ export default function CartDrawer() {
       />
 
       {/* Drawer */}
-      <div className="fixed top-0 right-0 bottom-0 w-[400px] max-w-[90vw] bg-[var(--bg)] z-[71] flex flex-col border-l border-[var(--border)] animate-slide-in-right">
+      <div className="fixed top-0 right-0 bottom-0 w-[400px] max-w-[90vw] bg-[var(--color-bg)] z-[71] flex flex-col border-l border-[var(--color-border)] animate-slide-in-right">
         {/* Header */}
-        <div className="flex items-center justify-between px-7 py-6 border-b border-[var(--border)]">
+        <div className="flex items-center justify-between px-7 py-6 border-b border-[var(--color-border)]">
           <h2 className="font-display text-[13px] tracking-[3px] font-bold">
             YOUR CART
           </h2>
@@ -35,21 +35,21 @@ export default function CartDrawer() {
         {/* Items */}
         <div className="flex-1 overflow-y-auto px-7 py-5">
           {items.length === 0 ? (
-            <p className="text-[var(--muted)] text-sm text-center mt-20">
+            <p className="text-[var(--color-muted)] text-sm text-center mt-20">
               Your cart is empty.
             </p>
           ) : (
             items.map((item) => (
               <div
                 key={`${item.product.id}-${item.size}`}
-                className="flex gap-4 py-4 border-b border-[var(--border)]"
+                className="flex gap-4 py-4 border-b border-[var(--color-border)]"
               >
                 {/* Thumbnail placeholder */}
                 <div
                   className="w-16 h-20 rounded-sm flex-shrink-0 flex items-center justify-center"
-                  style={{ background: "var(--bg-alt)" }}
+                  style={{ background: "var(--color-bg-alt)" }}
                 >
-                  <span className="font-display text-[8px] text-[var(--muted)] font-bold">
+                  <span className="font-display text-[8px] text-[var(--color-muted)] font-bold">
                     BP
                   </span>
                 </div>
@@ -58,7 +58,7 @@ export default function CartDrawer() {
                   <p className="font-display text-[10px] tracking-[2px] font-bold">
                     {item.product.name}
                   </p>
-                  <p className="text-[11px] text-[var(--muted)] mt-1">
+                  <p className="text-[11px] text-[var(--color-muted)] mt-1">
                     Size: {item.size} — Qty: {item.quantity}
                   </p>
                   <p className="text-[13px] mt-1">
@@ -66,7 +66,7 @@ export default function CartDrawer() {
                   </p>
                   <button
                     onClick={() => removeItem(item.product.id, item.size)}
-                    className="font-display text-[9px] tracking-[1px] text-[var(--muted)] hover:text-[var(--accent)] mt-2 transition-colors"
+                    className="font-display text-[9px] tracking-[1px] text-[var(--color-muted)] hover:text-[var(--color-accent)] mt-2 transition-colors"
                   >
                     REMOVE
                   </button>
@@ -78,7 +78,7 @@ export default function CartDrawer() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="px-7 py-6 border-t border-[var(--border)]">
+          <div className="px-7 py-6 border-t border-[var(--color-border)]">
             <div className="flex justify-between items-center mb-5">
               <span className="font-display text-[11px] tracking-[2px]">
                 TOTAL
@@ -87,7 +87,7 @@ export default function CartDrawer() {
                 {formatPrice(totalPrice())}
               </span>
             </div>
-            <button className="w-full font-display text-[11px] tracking-[3px] uppercase py-4 bg-[var(--text)] text-[var(--text-inv)] hover:bg-[var(--accent)] transition-colors">
+            <button className="w-full font-display text-[11px] tracking-[3px] uppercase py-4 bg-[var(--color-text)] text-[var(--color-text-inv)] hover:bg-[var(--color-accent)] transition-colors">
               CHECKOUT
             </button>
           </div>

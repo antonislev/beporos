@@ -6,11 +6,11 @@ export default function ShopPage() {
 
   return (
     <section className="px-6 md:px-10 py-24 max-w-[1200px] mx-auto">
-      <div className="flex justify-between items-end border-b border-[var(--border)] pb-5 mb-14">
+      <div className="flex justify-between items-end border-b border-[var(--color-border)] pb-5 mb-14">
         <h1 className="font-display text-[clamp(28px,4vw,42px)] font-bold tracking-[4px] uppercase">
           SHOP
         </h1>
-        <span className="font-display text-[11px] tracking-[2px] text-[var(--muted)]">
+        <span className="font-display text-[11px] tracking-[2px] text-[var(--color-muted)]">
           {products.length} ITEMS
         </span>
       </div>

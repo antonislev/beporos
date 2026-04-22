@@ -2,41 +2,34 @@ import { Product } from "@/types";
 
 export const products: Product[] = [
   {
-    id: "ghost-protocol",
-    slug: "ghost-protocol",
-    name: "GHOST PROTOCOL",
+    id: "poros-island-black",
+    slug: "poros-island-black",
+    name: "POROS ISLAND TEE — BLACK",
     price: 35,
-    images: ["/images/products/ghost-protocol-1.jpg"],
+    images: [
+      "/images/products/poros-island-black-front.jpg",
+      "/images/products/poros-island-black-back.jpg",
+    ],
     sizes: ["S", "M", "L", "XL"],
     description:
-      "Heavyweight 240gsm cotton tee. Oversized fit. Screen-printed front & back graphics. Made in Athens.",
+      "Heavyweight 240gsm cotton tee. Oversized fit. Pink neon Poros Island script on chest. Back print: Don't pollute waters of / Don't litter in / Don't mess with Poros Island. By locals, for locals.",
     category: "tee",
     tag: "new",
     inStock: true,
   },
   {
-    id: "concrete-hymn",
-    slug: "concrete-hymn",
-    name: "CONCRETE HYMN",
-    price: 65,
-    images: ["/images/products/concrete-hymn-1.jpg"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    id: "1963",
+    slug: "1963",
+    name: "1963 TEE — WHITE",
+    price: 35,
+    images: [
+      "/images/products/1963-front.jpg",
+      "/images/products/1963-back.jpg",
+    ],
+    sizes: ["S", "M", "L", "XL"],
     description:
-      "380gsm brushed fleece hoodie. Dropped shoulders, kangaroo pocket. Embroidered chest logo.",
-    category: "hoodie",
-    inStock: true,
-  },
-  {
-    id: "signal-lost",
-    slug: "signal-lost",
-    name: "SIGNAL LOST",
-    price: 30,
-    images: ["/images/products/signal-lost-1.jpg"],
-    sizes: ["M", "L", "XL"],
-    description:
-      "200gsm garment-dyed tee. Relaxed cut. Distressed print. Limited run — once gone, gone.",
+      "Heavyweight 240gsm cotton tee. Oversized fit. Vintage 1963 Poros photography on front. Back print: Be a lover, be Poros. A tribute to the island's golden era.",
     category: "tee",
-    tag: "limited",
     inStock: true,
   },
 ];
