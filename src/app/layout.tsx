@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "BEPOROS",
     description: "Athens Street Society",
-    images: ["/images/brand/og-image.jpg"],
   },
 };
 
@@ -22,10 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen flex flex-col">
         <Navbar />
         <CartDrawer />
-        <main>{children}</main>
+        <main className="flex-1 pt-[64px]">{children}</main>
         <Footer />
       </body>
     </html>

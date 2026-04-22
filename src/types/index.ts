@@ -21,7 +21,7 @@ export interface Drop {
   id: string;
   slug: string;
   title: string;
-  date: string; // ISO date
+  date: string;
   status: "upcoming" | "live" | "past";
   description: string;
   pieces: number;
@@ -33,7 +33,6 @@ export interface SocietyPost {
   slug: string;
   title: string;
   excerpt: string;
-  content: string;
   tag: "manifesto" | "culture" | "community" | "event";
   date: string;
   image?: string;

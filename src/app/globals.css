@@ -1,59 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/*
-  FONT SETUP
-  ──────────
-  Option A: Use Google Fonts (easier, slower)
-  Option B: Self-host .woff2 files in /public/fonts/ (faster, recommended)
 
-  For now we use Google Fonts. When you have purchased/downloaded
-  your display font, replace with @font-face declarations below.
-*/
-
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
-
-/*
-  SELF-HOSTED FONT EXAMPLE (uncomment when ready):
-
-  @font-face {
-    font-family: 'BepDisplay';
-    src: url('/fonts/PPNeueMontreal-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-display: swap;
-  }
-*/
 
 @layer base {
   :root {
-    /* BRAND PALETTE — inspired by Athens concrete + terracotta */
-    --bg:         #f5f1eb;
-    --bg-alt:     #ebe6de;
-    --surface:    #ffffff;
-    --text:       #0a0a0a;
-    --text-inv:   #f5f1eb;
-    --accent:     #c25a2d;
+    --bg: #f5f1eb;
+    --bg-alt: #ebe6de;
+    --surface: #ffffff;
+    --text: #0a0a0a;
+    --text-inv: #f5f1eb;
+    --accent: #c25a2d;
     --accent-hover: #a84920;
-    --muted:      #8a8580;
-    --border:     #d4cfc7;
-
-    /* TYPOGRAPHY */
+    --muted: #8a8580;
+    --border: #d4cfc7;
     --font-display: 'Space Mono', monospace;
-    --font-body:    'Outfit', sans-serif;
-  }
-
-  /* DARK MODE (optional — add toggle later) */
-  .dark {
-    --bg:         #0a0a0a;
-    --bg-alt:     #141414;
-    --surface:    #1a1a1a;
-    --text:       #f5f1eb;
-    --text-inv:   #0a0a0a;
-    --accent:     #d4703a;
-    --accent-hover: #e88650;
-    --muted:      #6b6560;
-    --border:     #2a2520;
+    --font-body: 'Outfit', sans-serif;
   }
 
   html {
@@ -77,8 +42,5 @@
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
-  }
-  .text-muted {
-    color: var(--muted);
   }
 }

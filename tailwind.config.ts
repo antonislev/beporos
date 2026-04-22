@@ -6,27 +6,25 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        bg:        "var(--bg)",
-        "bg-alt":  "var(--bg-alt)",
-        surface:   "var(--surface)",
-        text:      "var(--text)",
-        "text-inv":"var(--text-inv)",
-        accent:    "var(--accent)",
+        bg: "var(--bg)",
+        "bg-alt": "var(--bg-alt)",
+        surface: "var(--surface)",
+        text: "var(--text)",
+        "text-inv": "var(--text-inv)",
+        accent: "var(--accent)",
         "accent-hover": "var(--accent-hover)",
-        muted:     "var(--muted)",
-        border:    "var(--border)",
+        muted: "var(--muted)",
+        border: "var(--border)",
       },
       fontFamily: {
         display: ["var(--font-display)"],
-        body:    ["var(--font-body)"],
+        body: ["var(--font-body)"],
       },
       letterSpacing: {
-        widest: "0.2em",
-        mega:   "0.4em",
+        mega: "0.4em",
       },
       animation: {
         "fade-up": "fadeUp 0.6s ease forwards",
@@ -34,11 +32,11 @@ const config: Config = {
       },
       keyframes: {
         fadeUp: {
-          "0%":   { opacity: "0", transform: "translateY(20px)" },
+          "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         slideInRight: {
-          "0%":   { transform: "translateX(100%)" },
+          "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0)" },
         },
       },
