@@ -1,3 +1,3 @@
-import type { NextConfig } form 'next';
+import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {};
 export default nextConfig;
