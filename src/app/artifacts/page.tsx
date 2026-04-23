@@ -17,7 +17,7 @@ export default function ArtifactsPage() {
       </div>
 
       <p className="text-[var(--color-muted)] leading-relaxed max-w-[480px] mb-14">
-        2 designs. 100 units each. No restock. DM
+        2 designs. No restock. DM
         {" "}<a href="https://instagram.com/beporos" target="_blank" rel="noopener noreferrer" className="text-[var(--color-pink)] hover:underline">@beporos</a>{" "}
         to grab one or find us on the island this summer.
       </p>
