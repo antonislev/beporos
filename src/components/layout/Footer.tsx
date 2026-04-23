@@ -9,6 +9,7 @@ export default function Footer() {
         <div className="flex items-center gap-6">
           <a href="https://instagram.com/beporos" target="_blank" rel="noopener noreferrer" className="font-display text-[10px] tracking-[2px] text-[var(--color-pink)] font-bold hover:underline">@BEPOROS</a>
           <span className="font-display text-[9px] tracking-[2px] text-[var(--color-muted)]">© 2026</span>
+          <span className="font-display text-[9px] tracking-[2px] text-[var(--color-muted)]">MADE BY <a href="https://www.linkedin.com/in/antonislev/" target="_blank" rel="noopener noreferrer" className="text-[var(--color-pink)] hover:underline">@ANTONISLEV</a></span>
         </div>
       </div>
     </footer>
