@@ -3,20 +3,17 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useCartStore } from "@/store/cart";
 import MobileMenu from "./MobileMenu";
 
 const NAV_LINKS = [
-  { href: "/shop", label: "SHOP" },
+  { href: "/", label: "SOCIETY" },
+  { href: "/artifacts", label: "ARTIFACTS" },
   { href: "/drops", label: "DROPS" },
-  { href: "/society", label: "SOCIETY" },
   { href: "/about", label: "ABOUT" },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const totalItems = useCartStore((s) => s.totalItems());
-  const toggleCart = useCartStore((s) => s.toggle);
 
   return (
     <>
@@ -31,21 +28,12 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <button onClick={toggleCart} className="relative font-display text-[11px] tracking-[2px] uppercase text-[var(--color-muted)] hover:text-[var(--color-pink)] transition-colors">
-            CART
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-4 w-4 h-4 bg-[var(--color-pink)] text-[var(--color-text-inv)] text-[9px] rounded-full flex items-center justify-center font-body">{totalItems}</span>
-            )}
-          </button>
+          <a href="https://instagram.com/beporos" target="_blank" rel="noopener noreferrer" className="font-display text-[10px] tracking-[2px] text-[var(--color-pink)]">
+            IG
+          </a>
         </div>
 
         <div className="flex md:hidden items-center gap-5">
-          <button onClick={toggleCart} className="relative font-display text-[11px] tracking-[2px] uppercase">
-            CART
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-4 w-4 h-4 bg-[var(--color-pink)] text-[var(--color-text-inv)] text-[9px] rounded-full flex items-center justify-center font-body">{totalItems}</span>
-            )}
-          </button>
           <button onClick={() => setMobileOpen(true)} className="flex flex-col gap-[5px] p-1" aria-label="Open menu">
             <span className="block w-[22px] h-[1.5px] bg-[var(--color-text)]" />
             <span className="block w-[22px] h-[1.5px] bg-[var(--color-text)]" />
