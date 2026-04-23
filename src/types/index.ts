@@ -7,7 +7,7 @@ export interface Product {
   sizes: string[];
   description: string;
   category: "tee" | "hoodie" | "jacket" | "accessory";
-  tag?: "limited" | "sold-out" | "new";
+  tag?: "limited" | "sold-out" | "new" | "artifact";
   inStock: boolean;
 }
 
@@ -33,7 +33,8 @@ export interface SocietyPost {
   slug: string;
   title: string;
   excerpt: string;
-  tag: "manifesto" | "culture" | "community" | "event";
+  tag: "news" | "event" | "culture" | "manifesto" | "announcement";
   date: string;
+  pinned?: boolean;
   image?: string;
 }

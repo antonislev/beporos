@@ -1,42 +1,52 @@
+import Link from "next/link";
+
 export default function AboutPage() {
   return (
     <section className="px-6 md:px-10 py-24 max-w-[800px] mx-auto">
       <div className="border-b border-[var(--color-border)] pb-5 mb-14">
+        <span className="font-display text-[9px] tracking-[4px] text-[var(--color-pink)] uppercase block mb-2">
+          THE STORY
+        </span>
         <h1 className="font-display text-[clamp(28px,4vw,42px)] font-bold tracking-[4px] uppercase">
           ABOUT
         </h1>
       </div>
 
-      <div className="space-y-8 text-[var(--color-muted)] leading-relaxed font-light">
+      <div className="space-y-8 text-[var(--color-muted)] leading-[1.8] font-light">
         <p className="text-lg text-[var(--color-text)] font-normal">
-          BEPOROS is a streetwear label born on the island of Poros, Greece.
-          By locals, for locals.
+          BEPOROS is not a brand. It&apos;s a passport to the island of Poros, Greece.
         </p>
 
         <p>
-          The name says it: be Poros. Wear the island. Carry it with you
-          wherever you go. Every design comes from the culture, the
-          history, and the people of this place.
+          The name is the mission: <span className="text-[var(--color-pink)]">be Poros</span>.
+          Wear the island. Protect the island. Carry its identity wherever you go.
         </p>
 
         <p>
-          We don&apos;t mass-produce. We drop limited pieces and when
-          they&apos;re gone, they&apos;re gone. If you missed it, you
-          missed it.
+          Every piece we make is rooted in the culture, history, and people of
+          Poros. The 1963 tee is a time capsule. The black tee carries the
+          island&apos;s code on its back — don&apos;t pollute, don&apos;t litter, don&apos;t mess
+          with Poros Island.
         </p>
 
         <p>
-          Don&apos;t pollute its waters. Don&apos;t litter on its streets.
-          Don&apos;t mess with Poros Island.
+          We produce in small runs. When a piece is gone, it&apos;s gone. We don&apos;t
+          restock. We don&apos;t do seasons. We drop when the island tells us to.
         </p>
 
-        <div className="pt-8 border-t border-[var(--color-border)]">
-          <h3 className="font-display text-[10px] tracking-[3px] text-[var(--color-text)] uppercase mb-4">
-            CONTACT
+        <p>
+          By locals. For locals. And for anyone who&apos;s felt the pull of this
+          island and wants to carry a piece of it with them.
+        </p>
+
+        <div className="pt-10 border-t border-[var(--color-border)]">
+          <h3 className="font-display text-[10px] tracking-[3px] text-[var(--color-pink)] uppercase mb-6">
+            CONNECT
           </h3>
-          <p className="text-sm mt-2">
-            <a href="https://instagram.com/beporos" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-accent)] transition-colors">@beporos</a>
-          </p>
+          <div className="flex flex-col gap-3">
+            <a href="https://instagram.com/beporos" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-[var(--color-pink)] transition-colors">@beporos on Instagram</a>
+            <span className="text-sm">Poros Island, Greece</span>
+          </div>
         </div>
       </div>
     </section>

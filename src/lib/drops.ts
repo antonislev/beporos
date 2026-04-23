@@ -3,13 +3,13 @@ import { Drop } from "@/types";
 export const drops: Drop[] = [
   {
     id: "drop-002",
-    slug: "static-noise",
-    title: "DROP 002 — STATIC NOISE",
-    date: "2026-05-15T18:00:00",
+    slug: "summer-transmission",
+    title: "DROP 002 — SUMMER TRANSMISSION",
+    date: "2026-06-15T18:00:00",
     status: "upcoming",
     description:
-      "5 new pieces. Inspired by Athens FM frequencies at 3AM. Tees, a jacket, and something you haven't seen before.",
-    pieces: 5,
+      "New artifacts loading. Summer '26. The island speaks — we just put it on fabric.",
+    pieces: 4,
   },
   {
     id: "drop-001",
@@ -18,8 +18,8 @@ export const drops: Drop[] = [
     date: "2026-03-01T18:00:00",
     status: "past",
     description:
-      "Where it started. 3 designs. Raw, unfiltered, Athens-born. The foundation of beporos.",
-    pieces: 3,
+      "Where it all started. 2 designs. Poros Island Black. 1963. Gone in 48 hours.",
+    pieces: 2,
   },
 ];
 

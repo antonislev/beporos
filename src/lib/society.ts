@@ -2,30 +2,58 @@ import { SocietyPost } from "@/types";
 
 export const societyPosts: SocietyPost[] = [
   {
-    id: "no-seasons",
-    slug: "why-we-dont-do-seasons",
-    title: "WHY WE DON'T DO SEASONS",
+    id: "island-code",
+    slug: "the-island-code",
+    title: "THE ISLAND CODE",
     excerpt:
-      "Fashion calendars are built for corporations. We drop when something is ready. When the streets say it's time.",
+      "Three rules. Don't pollute. Don't litter. Don't mess with Poros. This is the code we live by and the code we print on our backs.",
     tag: "manifesto",
-    date: "2026-03-15",
+    date: "2026-04-20",
+    pinned: true,
   },
   {
-    id: "athens-after-dark",
-    slug: "athens-after-dark",
-    title: "ATHENS AFTER DARK",
+    id: "summer-26",
+    slug: "summer-26-lineup",
+    title: "SUMMER '26 — WHAT'S COMING",
     excerpt:
-      "Exarcheia walls. Psyrri corners. The city talks if you listen. This is where our graphics come from.",
+      "New designs in the works. A pop-up on the harbor. And something we've never done before. Stay locked.",
+    tag: "announcement",
+    date: "2026-04-18",
+  },
+  {
+    id: "poros-cleanup",
+    slug: "poros-beach-cleanup-may",
+    title: "BEACH CLEANUP — MAY 10",
+    excerpt:
+      "We're organizing a beach cleanup on Askeli. Show up, bring gloves, wear your BEPOROS. If you love the island, prove it.",
+    tag: "event",
+    date: "2026-04-15",
+  },
+  {
+    id: "1963-story",
+    slug: "why-1963",
+    title: "WHY 1963?",
+    excerpt:
+      "The year that shaped the island. Before the tourists, before the marina — when Poros was just Poros. The story behind the design.",
     tag: "culture",
-    date: "2026-03-10",
+    date: "2026-04-10",
   },
   {
-    id: "the-first-100",
-    slug: "the-first-100",
-    title: "THE FIRST 100",
+    id: "locals-spotlight",
+    slug: "locals-spotlight-kapetan-yiannis",
+    title: "LOCALS SPOTLIGHT: KAPETAN YIANNIS",
     excerpt:
-      "Our first 100 customers aren't customers. They're founders. Every piece from Drop 001 carries a hidden mark.",
-    tag: "community",
-    date: "2026-03-05",
+      "40 years on the water. He's seen every sunrise from the strait. We sat with him and listened.",
+    tag: "culture",
+    date: "2026-04-05",
+  },
+  {
+    id: "first-drop-recap",
+    slug: "drop-001-sold-out",
+    title: "DROP 001 — SOLD OUT IN 48HRS",
+    excerpt:
+      "The first transmission hit different. Both designs gone in two days. If you got one, you're part of the foundation.",
+    tag: "news",
+    date: "2026-03-28",
   },
 ];
