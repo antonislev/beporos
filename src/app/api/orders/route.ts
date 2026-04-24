@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { kv } from "@vercel/kv";
+import Redis from "ioredis";
+
+const redis = new Redis(process.env.REDIS_URL || "");
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,9 +24,7 @@ export async function POST(req: NextRequest) {
       status: "new",
     };
 
-    const orders = (await kv.get<any[]>("orders")) || [];
-    orders.push(order);
-    await kv.set("orders", orders);
+    await redis.rpush("orders", JSON.stringify(order));
 
     return NextResponse.json({ success: true, order });
   } catch (error) {
@@ -42,7 +42,8 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const orders = (await kv.get<any[]>("orders")) || [];
+    const raw = await redis.lrange("orders", 0, -1);
+    const orders = raw.map((item) => JSON.parse(item));
     return NextResponse.json({ orders });
   } catch (error) {
     console.error("Fetch error:", error);
