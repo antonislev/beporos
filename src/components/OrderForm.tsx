@@ -46,8 +46,6 @@ export default function OrderForm({ isOpen, onClose, productId, productName, siz
       <div className="fixed inset-0 z-[81] flex items-center justify-center px-4">
         <div className="bg-[var(--color-bg)] border border-[var(--color-border)] w-full max-w-[420px] p-8 relative">
 
-          <button onClick={onClose} className="absolute top-4 right-5 font-display text-[11px] tracking-[2px] text-[var(--color-muted)] hover:text-[var(--color-pink)] transition-colors">CLOSE</button>
-
           {status === "sent" ? (
             <div className="text-center py-8">
               <h3 className="font-display text-[18px] font-bold tracking-[2px] uppercase mb-3">GOT IT ✓</h3>
@@ -56,6 +54,8 @@ export default function OrderForm({ isOpen, onClose, productId, productName, siz
             </div>
           ) : (
             <>
+              <button onClick={onClose} className="absolute top-4 right-5 font-display text-[11px] tracking-[2px] text-[var(--color-muted)] hover:text-[var(--color-pink)] transition-colors">CLOSE</button>
+
               <h3 className="font-display text-[16px] font-bold tracking-[2px] uppercase mb-1">GRAB ONE</h3>
               <p className="text-sm text-[var(--color-muted)] mb-6">{productName}</p>
 

@@ -6,7 +6,6 @@ import Image from "next/image";
 import MobileMenu from "./MobileMenu";
 
 const NAV_LINKS = [
-  { href: "/", label: "HOME" },
   { href: "/artifacts", label: "TEES" },
   { href: "/drops", label: "DROPS" },
   { href: "/about", label: "ABOUT" },

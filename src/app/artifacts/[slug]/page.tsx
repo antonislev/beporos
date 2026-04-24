@@ -61,7 +61,7 @@ export default function ArtifactPage() {
               <button onClick={() => setFormOpen(true)} className="w-full font-display text-[11px] tracking-[2px] uppercase py-4 bg-[var(--color-pink)] text-[var(--color-text-inv)] hover:bg-[var(--color-pink-hover)] transition-colors font-bold">
                 GRAB ONE
               </button>
-              <p className="font-display text-[10px] tracking-[1px] text-[var(--color-muted)] text-center">100 units. No restock.</p>
+              <p className="font-display text-[10px] tracking-[1px] text-[var(--color-muted)] text-center">Limited units. No restock.</p>
             </div>
           </div>
         </div>

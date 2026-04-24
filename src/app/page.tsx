@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const LINKS = [
-  { href: "/society", label: "SOCIETY", color: "#e8729a", bg: "radial-gradient(circle at 50% 50%, rgba(232,114,154,0.15) 0%, transparent 70%)" },
+  { href: "#", label: "SOCIETY", color: "#9a9490", bg: "", disabled: true },
   { href: "/artifacts", label: "TEES", color: "#3d6b9e", bg: "radial-gradient(circle at 50% 50%, rgba(61,107,158,0.15) 0%, transparent 70%)" },
   { href: "/drops", label: "DROPS", color: "#e8729a", bg: "radial-gradient(circle at 50% 50%, rgba(232,114,154,0.12) 0%, transparent 70%)" },
   { href: "/about", label: "ABOUT", color: "#9a9490", bg: "radial-gradient(circle at 50% 50%, rgba(154,148,144,0.1) 0%, transparent 70%)" },
@@ -60,33 +60,39 @@ export default function HomePage() {
 
       {/* Navigation */}
       <div className="flex flex-col items-center gap-3 w-full max-w-[320px] relative z-10">
-        {LINKS.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            onMouseEnter={() => setHovered(link.label)}
-            onMouseLeave={() => setHovered(null)}
-            className="w-full text-center font-display text-[14px] tracking-[4px] uppercase py-5 border border-[var(--color-border)] font-bold relative overflow-hidden group transition-all duration-300"
-            style={{
-              borderColor: hovered === link.label ? link.color : undefined,
-              color: hovered === link.label ? link.color : undefined,
-            }}
-          >
-            {/* Fill animation on hover */}
-            <span
-              className="absolute inset-0 transition-transform duration-500 origin-left scale-x-0 group-hover:scale-x-100"
-              style={{ background: `${link.color}10` }}
-            />
-
-            {/* Sliding bar */}
-            <span
-              className="absolute left-0 top-0 bottom-0 w-[3px] transition-all duration-300 scale-y-0 group-hover:scale-y-100"
-              style={{ background: link.color }}
-            />
-
-            <span className="relative z-10">{link.label}</span>
-          </Link>
-        ))}
+        {LINKS.map((link) => 
+          link.disabled ? (
+            <div
+              key={link.label}
+              className="w-full text-center font-display text-[14px] tracking-[4px] uppercase py-5 border border-[var(--color-border)] font-bold relative overflow-hidden opacity-40 cursor-not-allowed"
+            >
+              <span className="relative z-10">{link.label}</span>
+              <span className="block font-display text-[9px] tracking-[2px] text-[var(--color-muted)] mt-1">COMING SOON</span>
+            </div>
+          ) : (
+            <Link
+              key={link.href}
+              href={link.href}
+              onMouseEnter={() => setHovered(link.label)}
+              onMouseLeave={() => setHovered(null)}
+              className="w-full text-center font-display text-[14px] tracking-[4px] uppercase py-5 border border-[var(--color-border)] font-bold relative overflow-hidden group transition-all duration-300"
+              style={{
+                borderColor: hovered === link.label ? link.color : undefined,
+                color: hovered === link.label ? link.color : undefined,
+              }}
+            >
+              <span
+                className="absolute inset-0 transition-transform duration-500 origin-left scale-x-0 group-hover:scale-x-100"
+                style={{ background: `${link.color}10` }}
+              />
+              <span
+                className="absolute left-0 top-0 bottom-0 w-[3px] transition-all duration-300 scale-y-0 group-hover:scale-y-100"
+                style={{ background: link.color }}
+              />
+              <span className="relative z-10">{link.label}</span>
+            </Link>
+          )
+        )}
       </div>
 
       {/* IG */}

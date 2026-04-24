@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "redis";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function getRedis() {
   const client = createClient({ url: process.env.REDIS_URL });
@@ -31,6 +34,21 @@ export async function POST(req: NextRequest) {
     const redis = await getRedis();
     await redis.rPush("orders", JSON.stringify(order));
     await redis.disconnect();
+
+    await resend.emails.send({
+      from: "BEPOROS Orders <onboarding@resend.dev>",
+      to: "antonislev7@gmail.com",
+      subject: `New Order: ${productName} — @${order.instagram}`,
+      html: `
+        <h2>New Order</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Instagram:</strong> <a href="https://instagram.com/${order.instagram}">@${order.instagram}</a></p>
+        <p><strong>Product:</strong> ${productName}</p>
+        <p><strong>Size:</strong> ${size}</p>
+        <p><strong>Quantity:</strong> ${quantity || 1}</p>
+        <p><strong>Date:</strong> ${order.date}</p>
+      `,
+    });
 
     return NextResponse.json({ success: true, order });
   } catch (error) {
