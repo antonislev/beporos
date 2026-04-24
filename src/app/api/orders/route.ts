@@ -1,16 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-// In-memory fallback if Vercel KV isn't set up yet
-let memoryOrders: any[] = [];
-
-// Try to import Vercel KV — falls back gracefully
-let kv: any = null;
-try {
-  const kvModule = require("@vercel/kv");
-  kv = kvModule.kv;
-} catch {
-  kv = null;
-}
+import { kv } from "@vercel/kv";
 
 export async function POST(req: NextRequest) {
   try {
@@ -33,24 +22,18 @@ export async function POST(req: NextRequest) {
       status: "new",
     };
 
-    if (kv && process.env.KV_REST_API_URL) {
-      // Store in Vercel KV
-      const orders = (await kv.get("orders")) || [];
-      orders.push(order);
-      await kv.set("orders", orders);
-    } else {
-      // Fallback: in-memory (resets on deploy, fine for testing)
-      memoryOrders.push(order);
-    }
+    const orders = (await kv.get<any[]>("orders")) || [];
+    orders.push(order);
+    await kv.set("orders", orders);
 
     return NextResponse.json({ success: true, order });
   } catch (error) {
+    console.error("Order error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
 export async function GET(req: NextRequest) {
-  // Simple auth check via query param (replace with real auth later)
   const { searchParams } = new URL(req.url);
   const key = searchParams.get("key");
 
@@ -59,15 +42,10 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    let orders;
-    if (kv && process.env.KV_REST_API_URL) {
-      orders = (await kv.get("orders")) || [];
-    } else {
-      orders = memoryOrders;
-    }
-
+    const orders = (await kv.get<any[]>("orders")) || [];
     return NextResponse.json({ orders });
-  } catch {
-    return NextResponse.json({ orders: memoryOrders });
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return NextResponse.json({ orders: [] });
   }
 }

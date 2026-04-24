@@ -12,7 +12,7 @@ export const products: Product[] = [
     ],
     sizes: ["S", "M", "L", "XL"],
     description:
-      "Protect the island at all costs . Don't pollute its waters. Don't litter on its land. Don't mess with Poros Island. Pink neon script on black heavyweight cotton. Oversized fit.",
+      "Protect the island at all costs . Don't pollute its waters. Don't litter on its land. Don't mess with Poros Island. Pink neon script on black heavyweight 100% greek cotton. Oversized/boxy fit.",
     category: "tee",
     tag: "new",
     inStock: true,
@@ -28,7 +28,7 @@ export const products: Product[] = [
     ],
     sizes: ["S", "M", "L", "XL"],
     description:
-      "Poros was always the place to find your summer love.Just dont let your bf/gf find out.",
+      "Poros was always the place to find your summer love.Just dont let your bf/gf find out.Graphic print white heavyweight 100% greek cotton. Oversized/boxy fit.",
     category: "tee",
     tag: "new",
     inStock: true,
