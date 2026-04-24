@@ -4,7 +4,7 @@ export const products: Product[] = [
   {
     id: "poros-island-black",
     slug: "poros-island-black",
-    name: "POROS ISLAND — BLACK",
+    name: "ACTIVIST TSHIRT",
     price: 0,
     images: [
       "/images/products/poros-island-black-front.jpg",
@@ -12,7 +12,7 @@ export const products: Product[] = [
     ],
     sizes: ["S", "M", "L", "XL"],
     description:
-      "The activist tee. Don't pollute its waters. Don't litter on its land. Don't mess with Poros Island. Pink neon script on black heavyweight cotton. Oversized fit.",
+      "Protect the island at all costs . Don't pollute its waters. Don't litter on its land. Don't mess with Poros Island. Pink neon script on black heavyweight cotton. Oversized fit.",
     category: "tee",
     tag: "new",
     inStock: true,
@@ -20,7 +20,7 @@ export const products: Product[] = [
   {
     id: "1963",
     slug: "1963",
-    name: "1963",
+    name: "1963 TSHIRT",
     price: 0,
     images: [
       "/images/products/1963-front.jpg",
@@ -28,7 +28,7 @@ export const products: Product[] = [
     ],
     sizes: ["S", "M", "L", "XL"],
     description:
-      "Poros before the marina, before the tourists. 1963. Vintage island photography on front. Be a lover, be Poros on the back. White heavyweight cotton. Oversized fit.",
+      "Poros was always the place to find your summer love.Just dont let your bf/gf find out.",
     category: "tee",
     tag: "new",
     inStock: true,
