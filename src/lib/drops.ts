@@ -5,11 +5,11 @@ export const drops: Drop[] = [
     id: "drop-002",
     slug: "summer-transmission",
     title: "DROP 002 — SUMMER TRANSMISSION",
-    date: "2026-06-15T18:00:00",
+    date: "2026-06-01T18:00:00",
     status: "upcoming",
     description:
       "New artifacts loading. Summer '26. The island speaks — we just put it on fabric.",
-    pieces: 4,
+    pieces: 2,
   },
   {
     id: "drop-001",
