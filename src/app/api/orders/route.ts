@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import Redis from "ioredis";
+import { createClient } from "redis";
 
-const redis = new Redis(process.env.REDIS_URL || "");
+async function getRedis() {
+  const client = createClient({ url: process.env.REDIS_URL });
+  await client.connect();
+  return client;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,7 +28,9 @@ export async function POST(req: NextRequest) {
       status: "new",
     };
 
-    await redis.rpush("orders", JSON.stringify(order));
+    const redis = await getRedis();
+    await redis.rPush("orders", JSON.stringify(order));
+    await redis.disconnect();
 
     return NextResponse.json({ success: true, order });
   } catch (error) {
@@ -42,7 +48,9 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const raw = await redis.lrange("orders", 0, -1);
+    const redis = await getRedis();
+    const raw = await redis.lRange("orders", 0, -1);
+    await redis.disconnect();
     const orders = raw.map((item) => JSON.parse(item));
     return NextResponse.json({ orders });
   } catch (error) {
