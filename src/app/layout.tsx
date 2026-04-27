@@ -6,9 +6,12 @@ import Footer from "@/components/layout/Footer";
 export const metadata: Metadata = {
   title: "BEPOROS — Poros Island Society",
   description: "Culture, events, and transmissions from Poros Island. By locals, for locals.",
-  openGraph: {
-    title: "BEPOROS",
-    description: "Poros Island Society",
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
 };
 
