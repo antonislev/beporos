@@ -31,7 +31,7 @@ export const societyPosts: SocietyPost[] = [
     slug: "summer-1-100-tees",
     title: "SUMMER 1 RECAP: 100 TEES, ZERO ADS",
     excerpt: "Last summer we made 100 map tees and sold every single one. No website, no ads, no platform. Just the island and Instagram DMs. That's the proof of concept.",
-    tag: "news",
+    tag: "announcement",
     date: "2026-04-15",
   },
   {

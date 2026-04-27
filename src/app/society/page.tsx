@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface Post {
   id: string;
@@ -23,43 +24,15 @@ const TAG_CONFIG: Record<string, { color: string; label: string; bg: string }> =
   people: { color: "#e8729a", label: "PEOPLE", bg: "linear-gradient(135deg, #4a1028, #9d174d)" },
   announcement: { color: "#e8729a", label: "ANNOUNCEMENT", bg: "linear-gradient(135deg, #2a0a1a, #7c1d4e)" },
   culture: { color: "#94a3b8", label: "CULTURE", bg: "linear-gradient(135deg, #1e293b, #334155)" },
+  manifesto: { color: "#e8729a", label: "MANIFESTO", bg: "linear-gradient(135deg, #2a0a1a, #7c1d4e)" },
+  news: { color: "#94a3b8", label: "NEWS", bg: "linear-gradient(135deg, #1e293b, #334155)" },
 };
 
 const CATEGORIES = ["all", "event", "nightlife", "island-life", "local-spot", "food", "people", "announcement", "culture"];
 
-function getYouTubeId(url: string): string | null {
-  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  return match ? match[1] : null;
-}
-
-function MediaBlock({ imageUrl, videoUrl }: { imageUrl?: string; videoUrl?: string }) {
-  if (videoUrl) {
-    const ytId = getYouTubeId(videoUrl);
-    if (ytId) {
-      return (
-        <div className="w-full aspect-video">
-          <iframe src={`https://www.youtube.com/embed/${ytId}`} className="w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
-        </div>
-      );
-    }
-    return (
-      <div className="w-full aspect-video bg-[var(--color-bg-alt)] flex items-center justify-center">
-        <a href={videoUrl} target="_blank" rel="noopener noreferrer" className="font-display text-[11px] tracking-[2px] text-[var(--color-pink)] hover:underline font-bold">▶ WATCH VIDEO</a>
-      </div>
-    );
-  }
-
-  if (imageUrl) {
-    return <img src={imageUrl} alt="" className="w-full object-cover" />;
-  }
-
-  return null;
-}
-
 export default function SocietyPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [filter, setFilter] = useState("all");
-  const [expandedPost, setExpandedPost] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -115,43 +88,37 @@ export default function SocietyPage() {
         <>
           {/* HERO POST */}
           {hero && (
-            <div className="mb-10 group cursor-pointer" onClick={() => setExpandedPost(expandedPost === hero.id ? null : hero.id)}>
+            <Link href={`/society/${hero.id}`} className="block mb-10 group">
               <div className="w-full relative overflow-hidden">
                 {hero.imageUrl ? (
                   <div className="relative">
-                    <img src={hero.imageUrl} alt="" className="w-full aspect-[16/7] md:aspect-[21/9] object-cover" />
+                    <img src={hero.imageUrl} alt="" className="w-full aspect-[4/3] md:aspect-[21/9] object-cover group-hover:scale-[1.02] transition-transform duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                     <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10">
                       <span className="font-display text-[10px] tracking-[3px] uppercase font-bold mb-3" style={{ color: TAG_CONFIG[hero.tag]?.color }}>{TAG_CONFIG[hero.tag]?.label}</span>
-                      <h2 className="font-display text-[clamp(22px,4vw,40px)] font-bold tracking-[1px] uppercase leading-tight text-white max-w-[700px]">{hero.title}</h2>
-                      <p className="text-white/60 mt-3 max-w-[500px] text-sm leading-relaxed hidden md:block">{hero.excerpt}</p>
-                      <span className="text-white/30 font-display text-[10px] tracking-[2px] mt-4">{hero.date}</span>
-                    </div>
-                  </div>
-                ) : hero.videoUrl ? (
-                  <div>
-                    <MediaBlock videoUrl={hero.videoUrl} />
-                    <div className="p-6 bg-[var(--color-bg-alt)]">
-                      <span className="font-display text-[10px] tracking-[3px] uppercase font-bold mb-2 block" style={{ color: TAG_CONFIG[hero.tag]?.color }}>{TAG_CONFIG[hero.tag]?.label}</span>
-                      <h2 className="font-display text-[clamp(22px,4vw,36px)] font-bold tracking-[1px] uppercase leading-tight">{hero.title}</h2>
-                      <p className="text-[var(--color-muted)] mt-2 text-sm">{hero.excerpt}</p>
+                      <h2 className="font-display text-[clamp(22px,4vw,40px)] font-bold tracking-[1px] uppercase leading-tight text-white max-w-[700px] group-hover:text-[var(--color-pink)] transition-colors">{hero.title}</h2>
+                      <p className="text-white/60 mt-3 max-w-[500px] text-sm leading-relaxed">{hero.excerpt}</p>
+                      <div className="flex items-center gap-4 mt-4">
+                        <span className="text-white/30 font-display text-[10px] tracking-[2px]">{hero.date}</span>
+                        <span className="font-display text-[10px] tracking-[2px] text-[var(--color-pink)] opacity-0 group-hover:opacity-100 transition-opacity">READ →</span>
+                      </div>
                     </div>
                   </div>
                 ) : (
-                  <div className="w-full aspect-[16/7] md:aspect-[21/9] relative overflow-hidden" style={{ background: TAG_CONFIG[hero.tag]?.bg || TAG_CONFIG.culture.bg }}>
+                  <div className="w-full aspect-[4/3] md:aspect-[21/9] relative overflow-hidden" style={{ background: TAG_CONFIG[hero.tag]?.bg || TAG_CONFIG.culture.bg }}>
                     <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10">
                       <span className="font-display text-[10px] tracking-[3px] uppercase font-bold mb-3" style={{ color: TAG_CONFIG[hero.tag]?.color }}>{TAG_CONFIG[hero.tag]?.label}</span>
-                      <h2 className="font-display text-[clamp(22px,4vw,40px)] font-bold tracking-[1px] uppercase leading-tight text-white max-w-[700px]">{hero.title}</h2>
-                      <p className="text-white/60 mt-3 max-w-[500px] text-sm leading-relaxed hidden md:block">{hero.excerpt}</p>
-                      <span className="text-white/30 font-display text-[10px] tracking-[2px] mt-4">{hero.date}</span>
+                      <h2 className="font-display text-[clamp(22px,4vw,40px)] font-bold tracking-[1px] uppercase leading-tight text-white max-w-[700px] group-hover:text-[var(--color-pink)] transition-colors">{hero.title}</h2>
+                      <p className="text-white/60 mt-3 max-w-[500px] text-sm leading-relaxed">{hero.excerpt}</p>
+                      <div className="flex items-center gap-4 mt-4">
+                        <span className="text-white/30 font-display text-[10px] tracking-[2px]">{hero.date}</span>
+                        <span className="font-display text-[10px] tracking-[2px] text-[var(--color-pink)] opacity-0 group-hover:opacity-100 transition-opacity">READ →</span>
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
-              {expandedPost === hero.id && hero.body && (
-                <div className="bg-[var(--color-bg-alt)] p-6 md:p-10 text-[var(--color-muted)] leading-[1.8] whitespace-pre-line border border-[var(--color-border)] border-t-0">{hero.body}</div>
-              )}
-            </div>
+            </Link>
           )}
 
           {/* EDITORIAL GRID */}
@@ -159,7 +126,7 @@ export default function SocietyPage() {
             {rest.map((post) => {
               const config = TAG_CONFIG[post.tag] || TAG_CONFIG.culture;
               return (
-                <div key={post.id} className="group cursor-pointer" onClick={() => setExpandedPost(expandedPost === post.id ? null : post.id)}>
+                <Link key={post.id} href={`/society/${post.id}`} className="group block">
                   {/* Card media */}
                   {post.imageUrl ? (
                     <div className="relative overflow-hidden">
@@ -167,10 +134,6 @@ export default function SocietyPage() {
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
                         <span className="font-display text-[9px] tracking-[3px] uppercase font-bold text-white/80">{config.label}</span>
                       </div>
-                    </div>
-                  ) : post.videoUrl ? (
-                    <div onClick={(e) => e.stopPropagation()}>
-                      <MediaBlock videoUrl={post.videoUrl} />
                     </div>
                   ) : (
                     <div className="w-full aspect-[4/3] relative overflow-hidden" style={{ background: config.bg }}>
@@ -183,18 +146,17 @@ export default function SocietyPage() {
 
                   {/* Card content */}
                   <div className="pt-4 pb-5">
-                    {(post.imageUrl || post.videoUrl) && (
+                    {post.imageUrl && (
                       <span className="font-display text-[9px] tracking-[3px] uppercase font-bold mb-2 block" style={{ color: config.color }}>{config.label}</span>
                     )}
                     <h3 className="font-display text-[14px] font-bold tracking-[1px] uppercase leading-snug group-hover:text-[var(--color-pink)] transition-colors">{post.title}</h3>
                     <p className="text-sm text-[var(--color-muted)] mt-2 leading-relaxed line-clamp-2">{post.excerpt}</p>
-                    <span className="font-display text-[9px] tracking-[2px] text-[var(--color-muted)] mt-3 block">{post.date}</span>
+                    <div className="flex items-center gap-3 mt-3">
+                      <span className="font-display text-[9px] tracking-[2px] text-[var(--color-muted)]">{post.date}</span>
+                      <span className="font-display text-[9px] tracking-[2px] text-[var(--color-pink)] opacity-0 group-hover:opacity-100 transition-opacity">READ →</span>
+                    </div>
                   </div>
-
-                  {expandedPost === post.id && post.body && (
-                    <div className="text-[var(--color-muted)] leading-[1.8] whitespace-pre-line pb-5 border-b border-[var(--color-border)] -mt-2 mb-2">{post.body}</div>
-                  )}
-                </div>
+                </Link>
               );
             })}
           </div>
