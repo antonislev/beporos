@@ -13,7 +13,7 @@ export default function AboutPage() {
         </p>
 
         <p>
-          I was born and raised here. This is not a tourist brand. It is not resort wear. It is not Santorini sunsets on a tote bag.
+          We were born and raised here. This is not a tourist brand. It is not resort wear. It is not Santorini sunsets on a tote bag.
         </p>
 
         <p>
@@ -21,7 +21,7 @@ export default function AboutPage() {
         </p>
 
         <p>
-          Summer 2026 is two new tees: the activist tee (Protect the sea) and the 1963 tee (Poros as a love story). 100 units each. Same approach — drop it, give it on the island and through DMs.
+          Summer 2026 is two new tees: the activist tee (Protect the sea) and the 1963 tee (Poros as a love story). Limited units each. Same approach — drop it, give it on the island and through DMs.
         </p>
 
         <p>
