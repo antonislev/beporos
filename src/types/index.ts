@@ -34,7 +34,7 @@ export interface SocietyPost {
   title: string;
   excerpt: string;
   body?: string;
-  tag: "event" | "nightlife" | "island-life" | "local-spot" | "food" | "people" | "announcement" | "culture";
+  tag: "event" | "nightlife" | "island-life" | "local-spot" | "food" | "people" | "announcement" | "culture" | "manifesto" | "news";
   date: string;
   pinned?: boolean;
   image?: string;
