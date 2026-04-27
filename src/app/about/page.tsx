@@ -17,11 +17,11 @@ export default function AboutPage() {
         </p>
 
         <p>
-          Summer 2024 I made 100 map tees — the island silhouette with all the local spots labeled. Love Bay, Kanali, Russian Bay, The View. Names tourists don&apos;t know. Sold every one through Instagram DMs and in-person on the island. No website, no ads, no platform.
+          Summer 2025 we made the MAP tees — the island silhouette with all the local spots labeled. Love Bay, Kanali, Russian Bay, The View. Names tourists don&apos;t know. Gave out every one through Instagram DMs and in-person on the island. No website, no ads, no platform.
         </p>
 
         <p>
-          Summer 2026 is two new tees: the activist tee (protect the sea) and the 1963 tee (the island before the tourists). 100 units each. Same approach — drop it, sell it on the island and through DMs.
+          Summer 2026 is two new tees: the activist tee (Protect the sea) and the 1963 tee (Poros as a love story). 100 units each. Same approach — drop it, give it on the island and through DMs.
         </p>
 
         <p>

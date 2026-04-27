@@ -28,7 +28,7 @@ export const products: Product[] = [
     ],
     sizes: ["S", "M", "L", "XL"],
     description:
-      "Poros was always the place to find your summer love.Just dont let your bf/gf find out.Graphic print white heavyweight 100% greek cotton. Oversized/boxy fit.",
+      "Summer, captured in 1963 Rewritten this year.Poros was always the place to find your summer love, just dont let your bf/gf find out. Graphic print white heavyweight 100% greek cotton. Oversized/boxy fit.",
     category: "tee",
     tag: "new",
     inStock: true,
