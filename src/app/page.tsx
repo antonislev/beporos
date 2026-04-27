@@ -1,107 +1,264 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LINKS = [
-  { href: "#", label: "SOCIETY", color: "#9a9490", bg: "", disabled: true },
-  { href: "/artifacts", label: "TEES", color: "#3d6b9e", bg: "radial-gradient(circle at 50% 50%, rgba(61,107,158,0.15) 0%, transparent 70%)" },
-  { href: "/drops", label: "DROPS", color: "#e8729a", bg: "radial-gradient(circle at 50% 50%, rgba(232,114,154,0.12) 0%, transparent 70%)" },
-  { href: "/about", label: "ABOUT", color: "#9a9490", bg: "radial-gradient(circle at 50% 50%, rgba(154,148,144,0.1) 0%, transparent 70%)" },
+  { href: "/society", label: "SOCIETY", subtitle: "CULTURE & EVENTS", color: "#e8729a" },
+  { href: "/artifacts", label: "TEES", subtitle: "COLLECTION 001", color: "#3d6b9e" },
+  { href: "/drops", label: "DROPS", subtitle: "UPCOMING RELEASES", color: "#e8729a" },
+  { href: "/about", label: "ABOUT", subtitle: "THE STORY", color: "#9a9490" },
 ];
+
+function useMousePosition() {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const handler = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", handler);
+    return () => window.removeEventListener("mousemove", handler);
+  }, []);
+  return pos;
+}
 
 export default function HomePage() {
   const [hovered, setHovered] = useState<string | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
-
+  const [entered, setEntered] = useState(false);
+  const mouse = useMousePosition();
+  const containerRef = useRef<HTMLElement>(null);
   const activeLink = LINKS.find((l) => l.label === hovered);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePos({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
-    });
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => setEntered(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const relMouse = containerRef.current
+    ? {
+        x: (mouse.x / window.innerWidth - 0.5) * 2,
+        y: (mouse.y / window.innerHeight - 0.5) * 2,
+      }
+    : { x: 0, y: 0 };
 
   return (
     <section
-      className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
-      onMouseMove={handleMouseMove}
+      ref={containerRef}
+      className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden cursor-default"
+      style={{ background: "var(--color-bg)" }}
     >
-      {/* Animated background glow that follows mouse on hover */}
-      <div
-        className="absolute inset-0 transition-opacity duration-500 pointer-events-none"
-        style={{
-          opacity: hovered ? 1 : 0,
-          background: activeLink
-            ? `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, ${activeLink.color}15, transparent 60%)`
-            : "none",
+      {/* Animated gradient blob following cursor */}
+      <motion.div
+        className="absolute w-[500px] h-[500px] rounded-full pointer-events-none blur-[180px]"
+        animate={{
+          x: mouse.x - 250,
+          y: mouse.y - 250,
+          background: activeLink ? `radial-gradient(circle, ${activeLink.color}20, transparent)` : "radial-gradient(circle, rgba(232,114,154,0.08), transparent)",
         }}
+        transition={{ type: "spring", damping: 30, stiffness: 100 }}
+        style={{ position: "fixed", top: 0, left: 0 }}
       />
 
-      {/* Glitch lines on hover */}
-      {hovered && (
-        <>
-          <div className="absolute left-0 right-0 h-[1px] pointer-events-none" style={{ top: `${mousePos.y - 10}%`, background: `linear-gradient(90deg, transparent, ${activeLink?.color}30, transparent)`, animation: "glitchLine 0.3s ease infinite alternate" }} />
-          <div className="absolute left-0 right-0 h-[1px] pointer-events-none" style={{ top: `${mousePos.y + 10}%`, background: `linear-gradient(90deg, transparent, ${activeLink?.color}20, transparent)`, animation: "glitchLine 0.5s ease infinite alternate-reverse" }} />
-        </>
-      )}
+      {/* Grid lines background */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{
+        backgroundImage: `linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px)`,
+        backgroundSize: "60px 60px",
+      }} />
 
-      {/* Logo */}
-      <div className={`relative w-[220px] h-[72px] md:w-[300px] md:h-[98px] mb-4 transition-all duration-500 ${hovered ? "scale-95 opacity-60" : "scale-100 opacity-100"}`}>
-        <Image src="/images/brand/logo.png" alt="Poros Island" fill className="object-contain" sizes="300px" priority />
-      </div>
+      {/* Floating particles */}
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 rounded-full bg-[var(--color-pink)] opacity-20 pointer-events-none"
+          animate={{
+            x: [0, Math.random() * 100 - 50, 0],
+            y: [0, Math.random() * -100, 0],
+            opacity: [0.1, 0.3, 0.1],
+          }}
+          transition={{ duration: 4 + i * 1.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.8 }}
+          style={{ top: `${20 + i * 15}%`, left: `${10 + i * 18}%` }}
+        />
+      ))}
 
-      <p className={`font-display text-[10px] tracking-[4px] text-[var(--color-muted)] uppercase mb-14 transition-all duration-500 ${hovered ? "opacity-30 tracking-[8px]" : "opacity-100"}`}>
-        By locals, for locals
-      </p>
+      {/* Logo with parallax */}
+      <motion.div
+        className="relative w-[220px] h-[72px] md:w-[320px] md:h-[105px] mb-3"
+        style={{ perspective: 800 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{
+          opacity: entered ? (hovered ? 0.5 : 1) : 0,
+          y: entered ? 0 : 30,
+          scale: hovered ? 0.92 : 1,
+          rotateY: 360,
+        }}
+        transition={{
+          rotateY: { duration: 10, ease: "linear", repeat: Infinity },
+          opacity: { type: "spring", damping: 20, stiffness: 80 },
+          y: { type: "spring", damping: 20, stiffness: 80 },
+          scale: { type: "spring", damping: 20, stiffness: 80 },
+        }}
+      >
+        <Image src="/images/brand/logo.png" alt="Poros Island" fill className="object-contain" sizes="320px" priority />
+      </motion.div>
+
+      {/* Tagline */}
+      <motion.div
+        className="flex items-center gap-3 mb-14"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: entered ? 1 : 0 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+      >
+        <motion.div
+          className="h-[1px] bg-[var(--color-pink)] opacity-40"
+          initial={{ width: 0 }}
+          animate={{ width: hovered ? 16 : 28 }}
+          transition={{ duration: 0.4 }}
+        />
+        <motion.p
+          className="font-display text-[10px] tracking-[5px] text-[var(--color-muted)] uppercase"
+          animate={{ letterSpacing: hovered ? "8px" : "5px", opacity: hovered ? 0.3 : 0.7 }}
+          transition={{ duration: 0.4 }}
+        >
+          By locals, for locals
+        </motion.p>
+        <motion.div
+          className="h-[1px] bg-[var(--color-pink)] opacity-40"
+          initial={{ width: 0 }}
+          animate={{ width: hovered ? 16 : 28 }}
+          transition={{ duration: 0.4 }}
+        />
+      </motion.div>
 
       {/* Navigation */}
-      <div className="flex flex-col items-center gap-3 w-full max-w-[320px] relative z-10">
-        {LINKS.map((link) => 
-          link.disabled ? (
-            <div
-              key={link.label}
-              className="w-full text-center font-display text-[14px] tracking-[4px] uppercase py-5 border border-[var(--color-border)] font-bold relative overflow-hidden opacity-40 cursor-not-allowed"
-            >
-              <span className="relative z-10">{link.label}</span>
-              <span className="block font-display text-[9px] tracking-[2px] text-[var(--color-muted)] mt-1">COMING SOON</span>
-            </div>
-          ) : (
+      <div className="flex flex-col items-center gap-2 w-full max-w-[340px] relative z-10">
+        {LINKS.map((link, i) => (
+          <motion.div
+            key={link.href}
+            className="w-full"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: entered ? 1 : 0, x: entered ? 0 : -20 }}
+            transition={{ delay: 0.4 + i * 0.1, duration: 0.5, ease: "easeOut" }}
+          >
             <Link
-              key={link.href}
               href={link.href}
               onMouseEnter={() => setHovered(link.label)}
               onMouseLeave={() => setHovered(null)}
-              className="w-full text-center font-display text-[14px] tracking-[4px] uppercase py-5 border border-[var(--color-border)] font-bold relative overflow-hidden group transition-all duration-300"
+              className="w-full flex items-center justify-between py-5 px-6 border border-[var(--color-border)] relative overflow-hidden group transition-all duration-300"
               style={{
                 borderColor: hovered === link.label ? link.color : undefined,
-                color: hovered === link.label ? link.color : undefined,
               }}
             >
-              <span
-                className="absolute inset-0 transition-transform duration-500 origin-left scale-x-0 group-hover:scale-x-100"
-                style={{ background: `${link.color}10` }}
+              {/* Sweep fill */}
+              <motion.span
+                className="absolute inset-0 origin-left"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: hovered === link.label ? 1 : 0 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                style={{ background: `${link.color}08` }}
               />
-              <span
-                className="absolute left-0 top-0 bottom-0 w-[3px] transition-all duration-300 scale-y-0 group-hover:scale-y-100"
+
+              {/* Left accent bar */}
+              <motion.span
+                className="absolute left-0 top-0 bottom-0 w-[3px]"
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: hovered === link.label ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
                 style={{ background: link.color }}
               />
-              <span className="relative z-10">{link.label}</span>
+
+              {/* Content */}
+              <div className="relative z-10 flex flex-col">
+                <motion.span
+                  className="font-display text-[15px] tracking-[4px] uppercase font-bold"
+                  animate={{ color: hovered === link.label ? link.color : "var(--color-text)", x: hovered === link.label ? 4 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {link.label}
+                </motion.span>
+                <motion.span
+                  className="font-display text-[8px] tracking-[3px] uppercase mt-1"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{
+                    opacity: hovered === link.label ? 0.5 : 0,
+                    height: hovered === link.label ? "auto" : 0,
+                  }}
+                  transition={{ duration: 0.2 }}
+                  style={{ color: link.color }}
+                >
+                  {link.subtitle}
+                </motion.span>
+              </div>
+
+              {/* Arrow */}
+              <motion.span
+                className="relative z-10 font-display text-[14px]"
+                animate={{
+                  opacity: hovered === link.label ? 1 : 0,
+                  x: hovered === link.label ? 0 : -10,
+                }}
+                transition={{ duration: 0.3 }}
+                style={{ color: link.color }}
+              >
+                →
+              </motion.span>
             </Link>
-          )
-        )}
+          </motion.div>
+        ))}
       </div>
 
-      {/* IG */}
-      <a href="https://instagram.com/beporos" target="_blank" rel="noopener noreferrer" className={`mt-12 font-display text-[10px] tracking-[3px] text-[var(--color-pink)] font-bold hover:underline transition-all duration-500 ${hovered ? "opacity-40" : "opacity-100"}`}>@BEPOROS</a>
+      {/* IG Link */}
+      <motion.a
+        href="https://instagram.com/beporos"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-12 font-display text-[10px] tracking-[3px] text-[var(--color-pink)] font-bold relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: entered ? (hovered ? 0.3 : 0.8) : 0 }}
+        transition={{ delay: 0.8, duration: 0.5 }}
+        whileHover={{ scale: 1.05, opacity: 1 }}
+      >
+        @BEPOROS
+        <motion.span
+          className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[var(--color-pink)]"
+          initial={{ scaleX: 0 }}
+          whileHover={{ scaleX: 1 }}
+          transition={{ duration: 0.3 }}
+        />
+      </motion.a>
 
       {/* Location */}
-      <span className={`absolute bottom-8 font-display text-[9px] tracking-[2px] text-[var(--color-muted)] transition-all duration-500 ${hovered ? "opacity-20" : "opacity-60"}`}>
-        POROS ISLAND — SARONIC GULF — GREECE
-      </span>
+      <motion.span
+        className="absolute bottom-8 font-display text-[9px] tracking-[3px] text-[var(--color-muted)]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: entered ? (hovered ? 0.15 : 0.4) : 0 }}
+        transition={{ delay: 1, duration: 0.5 }}
+      >
+        37.4967° N, 23.4572° E — POROS ISLAND
+      </motion.span>
+
+      {/* Horizontal scan lines (subtle) */}
+      <AnimatePresence>
+        {hovered && (
+          <>
+            <motion.div
+              className="absolute left-0 right-0 h-[1px] pointer-events-none"
+              initial={{ opacity: 0, top: "30%" }}
+              animate={{ opacity: 0.15, top: "70%" }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5, ease: "linear" }}
+              style={{ background: `linear-gradient(90deg, transparent, ${activeLink?.color}40, transparent)` }}
+            />
+            <motion.div
+              className="absolute left-0 right-0 h-[1px] pointer-events-none"
+              initial={{ opacity: 0, top: "70%" }}
+              animate={{ opacity: 0.1, top: "25%" }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 2, ease: "linear" }}
+              style={{ background: `linear-gradient(90deg, transparent, ${activeLink?.color}25, transparent)` }}
+            />
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

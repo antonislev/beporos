@@ -33,7 +33,8 @@ export interface SocietyPost {
   slug: string;
   title: string;
   excerpt: string;
-  tag: "news" | "event" | "culture" | "manifesto" | "announcement";
+  body?: string;
+  tag: "event" | "nightlife" | "island-life" | "local-spot" | "food" | "people" | "announcement" | "culture";
   date: string;
   pinned?: boolean;
   image?: string;
