@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import MobileMenu from "./MobileMenu";
 
 const NAV_LINKS = [
@@ -12,31 +11,98 @@ const NAV_LINKS = [
   { href: "/about", label: "ABOUT" },
 ];
 
+const POROS_LAT = 37.4967;
+const POROS_LNG = 23.4572;
+
+function getWeatherEmoji(code: number): string {
+  if (code === 0) return "☀️";
+  if (code <= 3) return "⛅";
+  if (code <= 48) return "🌫️";
+  if (code <= 57) return "🌦️";
+  if (code <= 67) return "🌧️";
+  if (code <= 77) return "🌨️";
+  if (code <= 82) return "🌧️";
+  if (code <= 86) return "🌨️";
+  if (code <= 99) return "⛈️";
+  return "🌤️";
+}
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [time, setTime] = useState("");
+  const [weather, setWeather] = useState<{ temp: number; emoji: string } | null>(null);
+
+  useEffect(() => {
+    const tick = () => {
+      setTime(new Date().toLocaleTimeString("en-GB", {
+        timeZone: "Europe/Athens",
+        hour: "2-digit",
+        minute: "2-digit",
+      }));
+    };
+    tick();
+    const interval = setInterval(tick, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${POROS_LAT}&longitude=${POROS_LNG}&current=temperature_2m,weather_code&timezone=Europe%2FAthens`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.current) {
+          setWeather({
+            temp: Math.round(data.current.temperature_2m),
+            emoji: getWeatherEmoji(data.current.weather_code),
+          });
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-4 bg-[var(--color-bg)]/95 backdrop-blur-sm border-b border-[var(--color-border)]">
-        <Link href="/" className="relative w-[90px] h-[30px] md:w-[110px] md:h-[36px]">
-          <Image src="/images/brand/logo.png" alt="beporos" fill className="object-contain object-left" sizes="110px" priority />
-        </Link>
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8 py-3 border-b border-[var(--color-border)]" style={{ background: "color-mix(in srgb, var(--color-bg) 92%, transparent)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}>
+        {/* Left: Island pulse */}
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-pink)] opacity-40" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-pink)]" />
+          </span>
+          <Link href="/" className="flex items-center gap-2">
+            <span style={{ fontFamily: "var(--font-display)", fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "var(--color-text)" }}>POROS</span>
+          </Link>
+          <span style={{ width: "1px", height: "14px", background: "var(--color-border)", margin: "0 4px" }} />
+          {time && (
+            <span style={{ fontFamily: "var(--font-display)", fontSize: "11px", fontWeight: 600, letterSpacing: "1px", color: "var(--color-text)" }}>{time}</span>
+          )}
+          {weather && (
+            <>
+              <span style={{ width: "1px", height: "14px", background: "var(--color-border)", margin: "0 4px" }} />
+              <span style={{ fontFamily: "var(--font-display)", fontSize: "11px", fontWeight: 600, letterSpacing: "1px", color: "var(--color-text)" }}>{weather.emoji} {weather.temp}°</span>
+            </>
+          )}
+        </div>
 
-        <div className="hidden md:flex items-center gap-7">
+        {/* Center: Nav (desktop) */}
+        {/* Center: Nav (desktop) */}
+        <div className="hidden md:flex items-center justify-center gap-6 absolute left-1/2 -translate-x-1/2">
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="font-display text-[11px] tracking-[2px] uppercase text-[var(--color-muted)] hover:text-[var(--color-pink)] transition-colors font-bold">
+            <Link key={link.href} href={link.href} style={{ fontFamily: "var(--font-display)", fontSize: "11px", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase" as const, color: "var(--color-muted)", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-pink)")} onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-muted)")}>
               {link.label}
             </Link>
           ))}
-          <a href="https://instagram.com/beporos" target="_blank" rel="noopener noreferrer" className="font-display text-[10px] tracking-[2px] text-[var(--color-pink)] font-bold">
-            IG
-          </a>
         </div>
 
-        <button onClick={() => setMobileOpen(true)} className="flex md:hidden flex-col gap-[5px] p-1" aria-label="Menu">
-          <span className="block w-[22px] h-[1.5px] bg-[var(--color-text)]" />
-          <span className="block w-[22px] h-[1.5px] bg-[var(--color-text)]" />
-        </button>
+        {/* Right */}
+        <div className="flex items-center gap-4">
+          <a href="https://open.spotify.com/playlist/4IC7fu1iz7yZYn45ve2N6g?si=50d53b96477c438a" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1" style={{ fontFamily: "var(--font-display)", fontSize: "10px", fontWeight: 700, letterSpacing: "2px", color: "var(--color-pink)", textDecoration: "none" }}>
+            ♫ PLAYLIST
+          </a>
+          <button onClick={() => setMobileOpen(true)} className="flex md:hidden flex-col gap-[5px] p-1" aria-label="Menu">
+            <span className="block w-[20px] h-[1.5px] bg-[var(--color-text)]" />
+            <span className="block w-[14px] h-[1.5px] bg-[var(--color-text)]" />
+          </button>
+        </div>
       </nav>
 
       <MobileMenu isOpen={mobileOpen} onClose={() => setMobileOpen(false)} links={NAV_LINKS} />
