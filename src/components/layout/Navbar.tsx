@@ -14,9 +14,9 @@ const NAV_LINKS = [
 const POROS_LAT = 37.4967;
 const POROS_LNG = 23.4572;
 
-function getWeatherEmoji(code: number): string {
-  if (code === 0) return "☀️";
-  if (code <= 3) return "⛅";
+function getWeatherEmoji(code: number, isDay: boolean): string {
+  if (code === 0) return isDay ? "☀️" : "🌙";
+  if (code <= 3) return isDay ? "⛅" : "☁️";
   if (code <= 48) return "🌫️";
   if (code <= 57) return "🌦️";
   if (code <= 67) return "🌧️";
@@ -24,7 +24,7 @@ function getWeatherEmoji(code: number): string {
   if (code <= 82) return "🌧️";
   if (code <= 86) return "🌨️";
   if (code <= 99) return "⛈️";
-  return "🌤️";
+  return isDay ? "🌤️" : "🌙";
 }
 
 export default function Navbar() {
@@ -46,13 +46,13 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${POROS_LAT}&longitude=${POROS_LNG}&current=temperature_2m,weather_code&timezone=Europe%2FAthens`)
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${POROS_LAT}&longitude=${POROS_LNG}&current=temperature_2m,weather_code,is_day&timezone=Europe%2FAthens`)
       .then((res) => res.json())
       .then((data) => {
         if (data.current) {
           setWeather({
             temp: Math.round(data.current.temperature_2m),
-            emoji: getWeatherEmoji(data.current.weather_code),
+            emoji: getWeatherEmoji(data.current.weather_code, data.current.is_day === 1),
           });
         }
       })

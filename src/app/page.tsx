@@ -47,6 +47,33 @@ export default function HomePage() {
       className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden cursor-default"
       style={{ background: "var(--color-bg)" }}
     >
+      {/* GTA Map background */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Map — visible and bold */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: "url('/images/brand/map.png')",
+          backgroundSize: "contain",
+          backgroundPosition: "center center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.08,
+        }} />
+
+        {/* Color tint overlay to blend with site palette */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(135deg, rgba(232,114,154,0.08), transparent 50%, rgba(61,107,158,0.06))",
+          mixBlendMode: "color",
+        }} />
+
+        {/* Edge fade */}
+        <div className="absolute inset-0" style={{
+          background: "radial-gradient(ellipse at center, transparent 35%, var(--color-bg) 70%)",
+        }} />
+
+        {/* Scanline overlay for that screen/game feel */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 4px)",
+        }} />
+      </div>
       {/* Animated gradient blob following cursor */}
       <motion.div
         className="absolute w-[500px] h-[500px] rounded-full pointer-events-none blur-[180px]"
@@ -130,7 +157,7 @@ export default function HomePage() {
       </motion.div>
 
       {/* Navigation */}
-      <div className="flex flex-col items-center gap-2 w-full max-w-[340px] relative z-10">
+      <div className="flex flex-col items-center gap-1 w-full max-w-[340px] relative z-10">
         {LINKS.map((link, i) => (
           <motion.div
             key={link.href}
@@ -143,64 +170,67 @@ export default function HomePage() {
               href={link.href}
               onMouseEnter={() => setHovered(link.label)}
               onMouseLeave={() => setHovered(null)}
-              className="w-full flex items-center justify-between py-5 px-6 border border-[var(--color-border)] relative overflow-hidden group transition-all duration-300"
-              style={{
-                borderColor: hovered === link.label ? link.color : undefined,
-              }}
+              className="w-full flex items-center gap-4 py-4 px-2 relative group"
             >
-              {/* Sweep fill */}
-              <motion.span
-                className="absolute inset-0 origin-left"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: hovered === link.label ? 1 : 0 }}
+              {/* Line that extends on hover */}
+              <motion.div
+                className="h-[1px] flex-shrink-0"
+                animate={{
+                  width: hovered === link.label ? 40 : 16,
+                  backgroundColor: hovered === link.label ? link.color : "var(--color-muted)",
+                }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                style={{ background: `${link.color}08` }}
               />
 
-              {/* Left accent bar */}
+              {/* Label */}
               <motion.span
-                className="absolute left-0 top-0 bottom-0 w-[3px]"
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: hovered === link.label ? 1 : 0 }}
+                style={{ fontFamily: "var(--font-display)", fontSize: "18px", fontWeight: 800, letterSpacing: "4px", textTransform: "uppercase" as const }}
+                animate={{
+                  color: hovered === link.label ? link.color : "var(--color-text)",
+                  x: hovered === link.label ? 6 : 0,
+                  textShadow: hovered === link.label ? `0 0 20px ${link.color}30` : "none",
+                }}
                 transition={{ duration: 0.3 }}
-                style={{ background: link.color }}
-              />
+              >
+                {link.label}
+              </motion.span>
 
-              {/* Content */}
-              <div className="relative z-10 flex flex-col">
-                <motion.span
-                  className="font-display text-[15px] tracking-[4px] uppercase font-bold"
-                  animate={{ color: hovered === link.label ? link.color : "var(--color-text)", x: hovered === link.label ? 4 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {link.label}
-                </motion.span>
-                <motion.span
-                  className="font-display text-[8px] tracking-[3px] uppercase mt-1"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{
-                    opacity: hovered === link.label ? 0.5 : 0,
-                    height: hovered === link.label ? "auto" : 0,
-                  }}
-                  transition={{ duration: 0.2 }}
-                  style={{ color: link.color }}
-                >
-                  {link.subtitle}
-                </motion.span>
-              </div>
-
-              {/* Arrow */}
+              {/* Subtitle slides in */}
               <motion.span
-                className="relative z-10 font-display text-[14px]"
+                style={{ fontFamily: "var(--font-display)", fontSize: "8px", letterSpacing: "3px", textTransform: "uppercase" as const, whiteSpace: "nowrap" as const }}
+                animate={{
+                  opacity: hovered === link.label ? 0.4 : 0,
+                  x: hovered === link.label ? 0 : -8,
+                  color: link.color,
+                }}
+                transition={{ duration: 0.3, delay: 0.05 }}
+              >
+                {link.subtitle}
+              </motion.span>
+
+              {/* Arrow far right */}
+              <motion.span
+                className="ml-auto"
+                style={{ fontFamily: "var(--font-display)", fontSize: "16px" }}
                 animate={{
                   opacity: hovered === link.label ? 1 : 0,
                   x: hovered === link.label ? 0 : -10,
+                  color: link.color,
                 }}
                 transition={{ duration: 0.3 }}
-                style={{ color: link.color }}
               >
                 →
               </motion.span>
+
+              {/* Bottom underline sweep */}
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-[1px] origin-left"
+                animate={{
+                  scaleX: hovered === link.label ? 1 : 0,
+                  backgroundColor: link.color,
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              />
             </Link>
           </motion.div>
         ))}

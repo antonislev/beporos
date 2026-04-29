@@ -60,3 +60,13 @@ p, span, a {
   0% { transform: translateX(-5px); opacity: 0.5; }
   100% { transform: translateX(5px); opacity: 1; }
 }
+
+@keyframes radarSweep {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes radarPulse {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.08; }
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+}
