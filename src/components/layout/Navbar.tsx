@@ -95,8 +95,8 @@ export default function Navbar() {
 
         {/* Right */}
         <div className="flex items-center gap-4">
-          <a href="https://open.spotify.com/playlist/4IC7fu1iz7yZYn45ve2N6g?si=50d53b96477c438a" target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1" style={{ fontFamily: "var(--font-display)", fontSize: "10px", fontWeight: 700, letterSpacing: "2px", color: "var(--color-pink)", textDecoration: "none" }}>
-            ♫ PLAYLIST
+          <a href="https://open.spotify.com/playlist/4IC7fu1iz7yZYn45ve2N6g?si=50d53b96477c438a" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1" style={{ fontFamily: "var(--font-display)", fontSize: "10px", fontWeight: 700, letterSpacing: "2px", color: "var(--color-pink)", textDecoration: "none" }}>
+            ♫
           </a>
           <button onClick={() => setMobileOpen(true)} className="flex md:hidden flex-col gap-[5px] p-1" aria-label="Menu">
             <span className="block w-[20px] h-[1.5px] bg-[var(--color-text)]" />
