@@ -76,35 +76,12 @@ p, span, a {
   100% { stroke-dashoffset: -20; }
 }
 
-@keyframes mapGlitch {
-  0% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
-  2% { clip-path: inset(20% 0 60% 0); transform: translate(-8px, 0); }
-  4% { clip-path: inset(60% 0 10% 0); transform: translate(5px, 0); }
-  5% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
-  47% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
-  48% { clip-path: inset(40% 0 30% 0); transform: translate(10px, 0); }
-  49% { clip-path: inset(10% 0 70% 0); transform: translate(-6px, 2px); }
-  49.5% { clip-path: inset(70% 0 5% 0); transform: translate(4px, -1px); }
-  50% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
-  100% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
-}
 
 @keyframes mapFlicker {
-  0% { opacity: 0.28; }
-  3% { opacity: 0.1; }
-  4% { opacity: 0.35; }
-  5% { opacity: 0.28; }
-  48% { opacity: 0.28; }
-  49% { opacity: 0.05; }
-  50% { opacity: 0.32; }
-  51% { opacity: 0.28; }
-  100% { opacity: 0.28; }
-}
-
-@keyframes rgbShift {
-  0% { transform: translate(0, 0); }
-  48% { transform: translate(0, 0); }
-  49% { transform: translate(3px, 0); }
-  50% { transform: translate(0, 0); }
-  100% { transform: translate(0, 0); }
+  0% { opacity: 0.15; }
+  48% { opacity: 0.15; }
+  49% { opacity: 0.08; }
+  50% { opacity: 0.18; }
+  51% { opacity: 0.15; }
+  100% { opacity: 0.15; }
 }

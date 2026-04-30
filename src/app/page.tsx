@@ -49,105 +49,112 @@ export default function HomePage() {
     >
       {/* GTA Map background — glitched */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Main map layer — glitches */}
+        {/* Main map layer */}
         <div className="absolute inset-0" style={{
           backgroundImage: "url('/images/brand/map.png')",
           backgroundSize: "contain",
           backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
-          animation: "mapGlitch 8s steps(1) infinite, mapFlicker 8s ease infinite",
+          opacity: 0.15,
+          animation: "mapFlicker 10s ease infinite",
         }} />
 
-        {/* Red channel offset — RGB split effect */}
+        {/* Soft pink glow behind map */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] rounded-full" style={{
+          background: "radial-gradient(circle, rgba(232,114,154,0.06), transparent 70%)",
+        }} />
+
+        {/* Edge fade — clean vignette */}
         <div className="absolute inset-0" style={{
-          backgroundImage: "url('/images/brand/map.png')",
-          backgroundSize: "contain",
-          backgroundPosition: "center center",
-          backgroundRepeat: "no-repeat",
-          opacity: 0.08,
-          mixBlendMode: "screen",
-          filter: "hue-rotate(320deg) saturate(3)",
-          animation: "rgbShift 8s steps(1) infinite",
+          background: "radial-gradient(ellipse at center, transparent 25%, var(--color-bg) 68%)",
         }} />
 
-        {/* Cyan channel offset — opposite direction */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: "url('/images/brand/map.png')",
-          backgroundSize: "contain",
-          backgroundPosition: "center center",
-          backgroundRepeat: "no-repeat",
-          opacity: 0.06,
-          mixBlendMode: "screen",
-          filter: "hue-rotate(180deg) saturate(3)",
-          animation: "rgbShift 8s steps(1) infinite reverse",
-        }} />
-
-        {/* Pink tint */}
-        <div className="absolute inset-0" style={{
-          background: "linear-gradient(135deg, rgba(232,114,154,0.06), transparent 50%, rgba(61,107,158,0.04))",
-        }} />
-
-        {/* Edge fade */}
-        <div className="absolute inset-0" style={{
-          background: "radial-gradient(ellipse at center, transparent 30%, var(--color-bg) 72%)",
-        }} />
-
-        {/* CRT scanlines */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.012) 2px, rgba(0,0,0,0.012) 4px)",
-        }} />
-
-        {/* Horizontal glitch slices */}
-        <motion.div className="absolute left-0 right-0 h-[4px] overflow-hidden" style={{ top: "35%" }}
-          animate={{ x: [-3, 6, -2, 8, 0], opacity: [0, 0.5, 0, 0.4, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 4 }}
-        >
-          <div className="w-full h-full" style={{ backgroundImage: "url('/images/brand/map.png')", backgroundSize: "contain", backgroundPosition: "center 35%", backgroundRepeat: "no-repeat", opacity: 0.6 }} />
-        </motion.div>
-
-        <motion.div className="absolute left-0 right-0 h-[2px] overflow-hidden" style={{ top: "58%" }}
-          animate={{ x: [5, -7, 3, -4, 0], opacity: [0, 0.4, 0, 0.6, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "linear", repeatDelay: 5.5 }}
-        >
-          <div className="w-full h-full" style={{ backgroundImage: "url('/images/brand/map.png')", backgroundSize: "contain", backgroundPosition: "center 58%", backgroundRepeat: "no-repeat", opacity: 0.6 }} />
-        </motion.div>
-
-        <motion.div className="absolute left-0 right-0 h-[6px] overflow-hidden" style={{ top: "72%" }}
-          animate={{ x: [4, -10, 6, -3, 0], opacity: [0, 0.3, 0, 0.5, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear", repeatDelay: 7 }}
-        >
-          <div className="w-full h-full" style={{ backgroundImage: "url('/images/brand/map.png')", backgroundSize: "contain", backgroundPosition: "center 72%", backgroundRepeat: "no-repeat", opacity: 0.5 }} />
-        </motion.div>
-
-        {/* Pulsing glow */}
+        {/* Scan line — single clean sweep */}
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-          animate={{
-            width: ["200px", "400px", "200px"],
-            height: ["200px", "400px", "200px"],
-            opacity: [0.06, 0.02, 0.06],
-          }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          style={{ background: "radial-gradient(circle, var(--color-pink), transparent 70%)" }}
+          className="absolute left-0 right-0 h-[1px]"
+          animate={{ top: ["0%", "100%"] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          style={{ background: "linear-gradient(90deg, transparent 10%, var(--color-pink), transparent 90%)", opacity: 0.12 }}
         />
 
-        {/* Vertical noise line */}
+        {/* Second scan — slower, opposite feel */}
         <motion.div
-          className="absolute top-0 bottom-0 w-[1px]"
-          animate={{
-            left: ["20%", "80%", "45%", "65%", "30%"],
-            opacity: [0, 0.08, 0, 0.06, 0],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          style={{ background: "var(--color-pink)" }}
+          className="absolute left-0 right-0 h-[1px]"
+          animate={{ top: ["100%", "0%"] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+          style={{ background: "linear-gradient(90deg, transparent 20%, var(--color-blue), transparent 80%)", opacity: 0.08 }}
         />
-
-        {/* Corner frame marks */}
-        <div className="absolute top-[15%] left-[15%] w-6 h-6 border-t border-l border-[var(--color-pink)] opacity-[0.15]" />
-        <div className="absolute top-[15%] right-[15%] w-6 h-6 border-t border-r border-[var(--color-pink)] opacity-[0.15]" />
-        <div className="absolute bottom-[15%] left-[15%] w-6 h-6 border-b border-l border-[var(--color-pink)] opacity-[0.15]" />
-        <div className="absolute bottom-[15%] right-[15%] w-6 h-6 border-b border-r border-[var(--color-pink)] opacity-[0.15]" />
+        {/* Corner marks */}
+        <div className="absolute top-[18%] left-[18%] w-5 h-5 border-t border-l border-[var(--color-pink)] opacity-[0.1]" />
+        <div className="absolute top-[18%] right-[18%] w-5 h-5 border-t border-r border-[var(--color-pink)] opacity-[0.1]" />
+        <div className="absolute bottom-[18%] left-[18%] w-5 h-5 border-b border-l border-[var(--color-pink)] opacity-[0.1]" />
+        <div className="absolute bottom-[18%] right-[18%] w-5 h-5 border-b border-r border-[var(--color-pink)] opacity-[0.1]" />
       </div>
+      {/* Glow burst — pulses at center */}
+      <motion.div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full pointer-events-none"
+        animate={{
+          opacity: [0, 0, 0.1, 0.04, 0, 0, 0.08, 0],
+          scale: [0.6, 0.6, 1.3, 1, 0.6, 0.6, 1.2, 0.6],
+        }}
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+        style={{ background: "radial-gradient(circle, var(--color-pink), transparent 60%)" }}
+      />
+
+      {/* Blue glow — offset, different rhythm */}
+      <motion.div
+        className="absolute w-[200px] h-[200px] rounded-full pointer-events-none"
+        animate={{
+          opacity: [0, 0.05, 0, 0, 0.04, 0],
+          scale: [0.8, 1.2, 0.8, 0.8, 1.1, 0.8],
+          x: ["-10%", "0%", "10%", "0%", "-5%", "-10%"],
+        }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        style={{ top: "40%", left: "55%", background: "radial-gradient(circle, var(--color-blue), transparent 60%)" }}
+      />
+
+      {/* Grid overlay */}
+      <div className="absolute inset-0" style={{
+        backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(232,114,154,0.02) 59px, rgba(232,114,154,0.02) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(232,114,154,0.02) 59px, rgba(232,114,154,0.02) 60px)",
+      }} />
+
+      {/* Scan line glow trail — pink line leaves a fading wake */}
+      <motion.div
+        className="absolute left-0 right-0 h-[30px] pointer-events-none"
+        animate={{ top: ["0%", "100%"] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+        style={{ background: "linear-gradient(180deg, transparent, rgba(232,114,154,0.03), transparent)" }}
+      />
+
+      {/* Scan line glow trail — blue line */}
+      <motion.div
+        className="absolute left-0 right-0 h-[20px] pointer-events-none"
+        animate={{ top: ["100%", "0%"] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+        style={{ background: "linear-gradient(180deg, transparent, rgba(61,107,158,0.025), transparent)" }}
+      />
+
+      {/* Outer ring pulse */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--color-pink)] pointer-events-none"
+        animate={{
+          width: ["100px", "500px"],
+          height: ["100px", "500px"],
+          opacity: [0.08, 0],
+        }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeOut", repeatDelay: 4 }}
+      />
+
+      {/* Second ring — staggered */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--color-blue)] pointer-events-none"
+        animate={{
+          width: ["80px", "400px"],
+          height: ["80px", "400px"],
+          opacity: [0.06, 0],
+        }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeOut", repeatDelay: 4, delay: 2 }}
+      />
       {/* Animated gradient blob following cursor */}
       <motion.div
         className="absolute w-[500px] h-[500px] rounded-full pointer-events-none blur-[180px]"
