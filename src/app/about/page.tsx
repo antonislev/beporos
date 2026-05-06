@@ -9,7 +9,7 @@ export default function AboutPage() {
 
       <div className="space-y-6 text-[var(--color-muted)] leading-[1.8]">
         <p className="text-[var(--color-text)] text-lg font-medium">
-          Poros Island is a streetwear brand from Poros, a small island in the Saronic Gulf near Athens. Population about 3,000.
+          Poros Island is a streetwear brand from Poros, a small island in the Saronic Gulf near Athens. Population about 4,000.
         </p>
 
         <p>

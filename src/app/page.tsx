@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const LINKS = [
-  { href: "/society", label: "SOCIETY", subtitle: "CULTURE & EVENTS", color: "#e8729a" },
+  { href: "/society", label: "SOCIETY", subtitle: "COMING SOON", color: "#e8729a", disabled: true },
   { href: "/artifacts", label: "TEES", subtitle: "COLLECTION 001", color: "#3d6b9e" },
   { href: "/drops", label: "DROPS", subtitle: "UPCOMING RELEASES", color: "#e8729a" },
   { href: "/about", label: "ABOUT", subtitle: "THE STORY", color: "#9a9490" },
@@ -238,21 +238,29 @@ export default function HomePage() {
       </motion.div>
 
       {/* Navigation */}
-      <div className="flex flex-col items-center gap-1 w-full max-w-[340px] relative z-10">
-        {LINKS.map((link, i) => (
-          <motion.div
-            key={link.href}
-            className="w-full"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: entered ? 1 : 0, x: entered ? 0 : -20 }}
-            transition={{ delay: 0.4 + i * 0.1, duration: 0.5, ease: "easeOut" }}
-          >
-            <Link
-              href={link.href}
-              onMouseEnter={() => setHovered(link.label)}
-              onMouseLeave={() => setHovered(null)}
-              className="w-full flex items-center gap-4 py-4 px-2 relative group"
+      {/* Navigation */}
+        <div className="flex flex-col items-center gap-1 w-full max-w-[340px] relative z-10">
+          {LINKS.map((link, i) => (
+            <motion.div
+              key={link.href}
+              className="w-full"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: entered ? 1 : 0, x: entered ? 0 : -20 }}
+              transition={{ delay: 0.4 + i * 0.1, duration: 0.5, ease: "easeOut" }}
             >
+              {link.disabled ? (
+                <div className="w-full flex items-center gap-4 py-4 px-2 opacity-35 cursor-not-allowed">
+                  <div className="h-[1px] w-4" style={{ background: "var(--color-muted)" }} />
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: "18px", fontWeight: 800, letterSpacing: "4px", textTransform: "uppercase" as const, color: "var(--color-muted)" }}>{link.label}</span>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: "8px", letterSpacing: "3px", textTransform: "uppercase" as const, color: "var(--color-muted)", opacity: 0.6 }}>COMING SOON</span>
+                </div>
+              ) : (
+                <Link
+                  href={link.href}
+                  onMouseEnter={() => setHovered(link.label)}
+                  onMouseLeave={() => setHovered(null)}
+                  className="w-full flex items-center gap-4 py-4 px-2 relative group"
+                >
               {/* Line that extends on hover */}
               <motion.div
                 className="h-[1px] flex-shrink-0"
@@ -313,6 +321,7 @@ export default function HomePage() {
                 transition={{ duration: 0.4, ease: "easeOut" }}
               />
             </Link>
+            )}
           </motion.div>
         ))}
       </div>
