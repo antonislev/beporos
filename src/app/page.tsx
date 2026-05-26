@@ -24,7 +24,7 @@ function useMousePosition() {
 
 export default function HomePage() {
   const [hovered, setHovered] = useState<string | null>(null);
-  const [entered, setEntered] = useState(false);
+  const [entered, setEntered] = useState(true);
   const mouse = useMousePosition();
   const containerRef = useRef<HTMLElement>(null);
   const activeLink = LINKS.find((l) => l.label === hovered);
