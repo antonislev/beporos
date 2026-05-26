@@ -85,19 +85,3 @@ p, span, a {
   51% { opacity: 0.15; }
   100% { opacity: 0.15; }
 }
-/* Fallback — show content if JS animations don't run */
-@media screen {
-  body {
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-}
-
-/* Force visibility on all motion elements */
-[style*="opacity: 0"] {
-  animation: forceShow 0s 1s forwards !important;
-}
-
-@keyframes forceShow {
-  to { opacity: 1 !important; }
-}
