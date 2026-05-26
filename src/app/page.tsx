@@ -42,11 +42,8 @@ export default function HomePage() {
     : { x: 0, y: 0 };
 
   return (
-    <section
-      ref={containerRef}
-      className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden cursor-default"
-      style={{ background: "var(--color-bg)" }}
-    >
+    <section ref={containerRef} className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden cursor-default bg-[var(--color-bg)]">
+      <div style={{ position: "fixed", top: 60, left: 10, background: "red", color: "white", padding: 10, zIndex: 9999, fontSize: 12 }}>PAGE LOADED</div>
       {/* GTA Map background — glitched */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Main map layer */}
